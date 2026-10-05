@@ -7,6 +7,7 @@
 <title>Кирилл ❤️ Диана</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -36,19 +37,27 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* СЧЁТЧИК */
+
 .counter {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.85);
     border-radius: 22px;
-    padding: 18px;
+    padding: 20px 10px;
     margin-bottom: 25px;
     box-shadow: 0 8px 25px rgba(100,40,60,0.1);
 }
 
+.counter div {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
 .counter b {
     display: block;
-    margin-top: 5px;
-    font-size: 25px;
+    font-size: 22px;
 }
+
+/* ТЕКСТ */
 
 .message {
     background: white;
@@ -59,6 +68,8 @@ h1 {
     box-shadow: 0 8px 25px rgba(100,40,60,0.1);
     margin-bottom: 25px;
 }
+
+/* ФОТО */
 
 .photos {
     display: grid;
@@ -82,6 +93,8 @@ h1 {
     display: block;
 }
 
+/* КНОПКА */
+
 button {
     border: none;
     background: #e75475;
@@ -97,6 +110,8 @@ button:active {
     transform: scale(0.96);
 }
 
+/* СЕРДЕЧКИ */
+
 .heart {
     position: fixed;
     pointer-events: none;
@@ -106,6 +121,7 @@ button:active {
 }
 
 @keyframes fly {
+
     0% {
         transform: translateY(0) scale(1);
         opacity: 1;
@@ -115,9 +131,13 @@ button:active {
         transform: translateY(-250px) scale(1.5);
         opacity: 0;
     }
+
 }
 
+/* ДЛЯ МАЛЕНЬКОГО ЭКРАНА */
+
 @media (max-width: 400px) {
+
     h1 {
         font-size: 29px;
     }
@@ -125,7 +145,13 @@ button:active {
     .photo {
         height: 150px;
     }
+
+    .counter b {
+        font-size: 19px;
+    }
+
 }
+
 </style>
 </head>
 
@@ -139,35 +165,58 @@ button:active {
         27.09.2026
     </div>
 
+
+    <!-- СЧЁТЧИК -->
+
     <div class="counter">
-        <div>Мы вместе уже</div>
-        <b id="days">0 дней</b>
+
+        <div>
+            Мы вместе уже
+        </div>
+
+        <b id="timer">
+            0 дней 00:00:00
+        </b>
+
     </div>
 
+
+    <!-- СООБЩЕНИЕ -->
+
     <div class="message">
+
         Я просто хотел сделать для тебя что-то,
-        что останется на память. Это только начало нашей истории. ❤️
+        что останется на память. Собрал сюда наши
+        моменты, потому что каждый из них для меня
+        особенный. И это только начало нашей истории. ❤️
+
     </div>
+
+
+    <!-- ФОТО -->
 
     <div class="photos">
 
         <div class="photo">
-            <img src="IMG_7778.jpeg" alt="Фото 1">
+            <img src="IMG_7563.jpeg" alt="Фото 1">
         </div>
 
         <div class="photo">
-            <img src="IMG_7984.jpeg" alt="Фото 2">
+            <img src="IMG_7778.jpeg" alt="Фото 2">
         </div>
 
         <div class="photo">
-            <img src="IMG_7987.jpeg" alt="Фото 3">
+            <img src="IMG_7984.jpeg" alt="Фото 3">
         </div>
 
         <div class="photo">
-            <img src="IMG_7563.jpeg" alt="Фото 4">
+            <img src="IMG_7987.jpeg" alt="Фото 4">
         </div>
 
     </div>
+
+
+    <!-- КНОПКА -->
 
     <button onclick="makeHearts()">
         Нажми ❤️
@@ -175,29 +224,71 @@ button:active {
 
 </div>
 
+
 <script>
 
+/* ДАТА НАЧАЛА */
+
 const startDate = new Date(2026, 8, 27);
-const today = new Date();
 
-const difference = today - startDate;
 
-const days = Math.max(
-    0,
-    Math.floor(difference / 86400000)
-);
+/* ОБНОВЛЕНИЕ СЧЁТЧИКА */
 
-document.getElementById("days").textContent =
-    days + (days === 1 ? " день" : " дней");
+function updateTimer() {
 
+    const now = new Date();
+
+    const difference = Math.max(
+        0,
+        now - startDate
+    );
+
+    const days = Math.floor(
+        difference / 86400000
+    );
+
+    const hours = Math.floor(
+        (difference % 86400000) / 3600000
+    );
+
+    const minutes = Math.floor(
+        (difference % 3600000) / 60000
+    );
+
+    const seconds = Math.floor(
+        (difference % 60000) / 1000
+    );
+
+
+    const h = String(hours).padStart(2, "0");
+    const m = String(minutes).padStart(2, "0");
+    const s = String(seconds).padStart(2, "0");
+
+
+    document.getElementById("timer").textContent =
+        `${days} дней ${h}:${m}:${s}`;
+
+}
+
+
+/* ЗАПУСК */
+
+updateTimer();
+
+setInterval(updateTimer, 1000);
+
+
+/* СЕРДЕЧКИ */
 
 function makeHearts() {
 
     for (let i = 0; i < 15; i++) {
 
-        const heart = document.createElement("div");
+        const heart =
+            document.createElement("div");
 
         heart.className = "heart";
+
         heart.textContent = "❤️";
 
         heart.style.left =
@@ -211,10 +302,15 @@ function makeHearts() {
 
         document.body.appendChild(heart);
 
+
         setTimeout(() => {
+
             heart.remove();
+
         }, 2500);
+
     }
+
 }
 
 </script>
