@@ -47,14 +47,23 @@ h1 {
     box-shadow: 0 8px 25px rgba(100,40,60,0.1);
 }
 
-.counter div {
+.counter > div {
     font-size: 16px;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 }
 
 .counter b {
     display: block;
-    font-size: 22px;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.counter span {
+    display: block;
+    text-align: center;
+    color: #9b6673;
+    font-size: 16px;
 }
 
 /* ТЕКСТ */
@@ -134,8 +143,6 @@ button:active {
 
 }
 
-/* ДЛЯ МАЛЕНЬКОГО ЭКРАНА */
-
 @media (max-width: 400px) {
 
     h1 {
@@ -147,7 +154,7 @@ button:active {
     }
 
     .counter b {
-        font-size: 19px;
+        font-size: 26px;
     }
 
 }
@@ -165,7 +172,6 @@ button:active {
         27.09.2026
     </div>
 
-
     <!-- СЧЁТЧИК -->
 
     <div class="counter">
@@ -174,24 +180,24 @@ button:active {
             Мы вместе уже
         </div>
 
-        <b id="timer">
-            0 дней 00:00:00
+        <b id="days">
+            0 дней
         </b>
 
-    </div>
+        <span id="time">
+            00 часов 00 минут 00 секунд
+        </span>
 
+    </div>
 
     <!-- СООБЩЕНИЕ -->
 
     <div class="message">
 
         Я просто хотел сделать для тебя что-то,
-        что останется на память. Собрал сюда наши
-        моменты, потому что каждый из них для меня
-        особенный. И это только начало нашей истории. ❤️
+        что останется на память. Это только начало нашей истории. ❤️
 
     </div>
-
 
     <!-- ФОТО -->
 
@@ -215,7 +221,6 @@ button:active {
 
     </div>
 
-
     <!-- КНОПКА -->
 
     <button onclick="makeHearts()">
@@ -227,12 +232,7 @@ button:active {
 
 <script>
 
-/* ДАТА НАЧАЛА */
-
 const startDate = new Date(2026, 8, 27);
-
-
-/* ОБНОВЛЕНИЕ СЧЁТЧИКА */
 
 function updateTimer() {
 
@@ -259,19 +259,17 @@ function updateTimer() {
         (difference % 60000) / 1000
     );
 
+    document.getElementById("days").textContent =
+        days + " дней";
 
-    const h = String(hours).padStart(2, "0");
-    const m = String(minutes).padStart(2, "0");
-    const s = String(seconds).padStart(2, "0");
-
-
-    document.getElementById("timer").textContent =
-        `${days} дней ${h}:${m}:${s}`;
-
+    document.getElementById("time").textContent =
+        String(hours).padStart(2, "0") +
+        " часов " +
+        String(minutes).padStart(2, "0") +
+        " минут " +
+        String(seconds).padStart(2, "0") +
+        " секунд";
 }
-
-
-/* ЗАПУСК */
 
 updateTimer();
 
@@ -284,8 +282,7 @@ function makeHearts() {
 
     for (let i = 0; i < 15; i++) {
 
-        const heart =
-            document.createElement("div");
+        const heart = document.createElement("div");
 
         heart.className = "heart";
 
@@ -302,15 +299,10 @@ function makeHearts() {
 
         document.body.appendChild(heart);
 
-
         setTimeout(() => {
-
             heart.remove();
-
         }, 2500);
-
     }
-
 }
 
 </script>
