@@ -7,212 +7,283 @@
 <title>Кирилл ❤️ Диана</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #ffe5ec, #fff5f7);
-    color: #3b2028;
-    text-align: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #fff0f6);
+    color: #5a2942;
+    overflow-x: hidden;
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     margin: auto;
-    padding: 30px 18px 50px;
+    padding: 30px 15px 60px;
+    text-align: center;
 }
 
 h1 {
     font-size: 34px;
-    margin: 0 0 8px;
+    margin-bottom: 8px;
 }
 
 .date {
-    color: #9b6673;
-    font-size: 17px;
-    margin-bottom: 30px;
+    font-size: 16px;
+    opacity: .7;
+    margin-bottom: 25px;
 }
 
 /* СЧЁТЧИК */
 
-.counter {
-    background: rgba(255,255,255,0.85);
-    border-radius: 22px;
-    padding: 20px 10px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 25px rgba(100,40,60,0.1);
+.timer {
+    background: rgba(255,255,255,.65);
+    border-radius: 25px;
+    padding: 22px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(120,50,80,.12);
 }
 
-.counter > div {
-    font-size: 16px;
+.timer-title {
+    font-size: 18px;
     margin-bottom: 8px;
 }
 
-.counter b {
-    display: block;
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 5px;
+#days {
+    font-size: 38px;
+    font-weight: bold;
 }
 
-.counter span {
-    display: block;
-    text-align: center;
-    color: #9b6673;
+#time {
+    margin-top: 5px;
     font-size: 16px;
 }
 
-/* СООБЩЕНИЕ */
+/* КАРТОЧКИ */
 
-.message {
-    background: white;
-    border-radius: 22px;
-    padding: 25px 20px;
-    line-height: 1.6;
-    font-size: 17px;
-    box-shadow: 0 8px 25px rgba(100,40,60,0.1);
-    margin-bottom: 25px;
-}
-
-/* ФОТО */
-
-.photos {
+.cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 15px;
     margin-bottom: 30px;
-    perspective: 1000px;
 }
 
-.photo-card {
-    height: 190px;
+.card {
+    height: 230px;
+    perspective: 1000px;
     cursor: pointer;
-    perspective: 1000px;
 }
 
-.photo-inner {
+.card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.7s ease;
+    transition: transform .7s;
     transform-style: preserve-3d;
 }
 
-.photo-card.flipped .photo-inner {
+.card.flipped .card-inner {
     transform: rotateY(180deg);
 }
 
-.photo-front,
-.photo-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 18px;
+    border-radius: 22px;
     overflow: hidden;
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    box-shadow: 0 6px 18px rgba(100,40,60,0.12);
+    box-shadow: 0 8px 25px rgba(120,50,80,.15);
 }
 
-/* ЛИЦЕВАЯ СТОРОНА */
-
-.photo-front {
-    background: #f8cbd6;
-}
-
-.photo-front img {
+.card-front img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
 }
 
-/* ОБРАТНАЯ СТОРОНА */
-
-.photo-back {
-    background: linear-gradient(135deg, #fff0f4, #ffdce6);
-    transform: rotateY(180deg);
-
+.card-back {
+    background: linear-gradient(135deg, #ffb6d2, #ffdce9);
     display: flex;
-    align-items: center;
     justify-content: center;
-
+    align-items: center;
     padding: 20px;
-
-    color: #7d4050;
-    font-size: 17px;
-    line-height: 1.5;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: bold;
+    transform: rotateY(180deg);
 }
 
-/* КНОПКА */
+/* ТЕКСТ */
+
+.message {
+    background: rgba(255,255,255,.65);
+    border-radius: 25px;
+    padding: 25px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* КНОПКИ */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 100;
+}
 
 button {
     border: none;
-    background: #e75475;
-    color: white;
-    padding: 14px 25px;
-    border-radius: 30px;
+    border-radius: 18px;
+    padding: 15px 20px;
     font-size: 17px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #ff6fa5, #ff9fc2);
+    box-shadow: 0 7px 18px rgba(255,90,150,.25);
     cursor: pointer;
-    box-shadow: 0 7px 18px rgba(200,60,90,0.25);
+    touch-action: manipulation;
+    position: relative;
+    z-index: 101;
 }
 
 button:active {
-    transform: scale(0.96);
+    transform: scale(.97);
 }
 
-/* СЕРДЕЧКИ */
+/* ОБЫЧНЫЕ СЕРДЦА */
 
-.heart {
+.flying-heart {
     position: fixed;
+    z-index: 200;
     pointer-events: none;
-    animation: fly 2s ease-out forwards;
-    font-size: 25px;
-    z-index: 999;
+    animation: flyAway 2.2s ease-out forwards;
 }
 
-@keyframes fly {
-
+@keyframes flyAway {
     0% {
-        transform: translateY(0) scale(1);
         opacity: 1;
+        transform: scale(.6);
     }
 
     100% {
-        transform: translateY(-250px) scale(1.5);
         opacity: 0;
+        transform:
+            translateY(-180px)
+            scale(1.5)
+            rotate(25deg);
     }
-
 }
 
-/* ТЕЛЕФОН */
+/* СЕРДЦЕ ИЗ СЕРДЕЧЕК */
 
-@media (max-width: 400px) {
+.shape-heart {
+    position: fixed;
+    z-index: 190;
+    pointer-events: none;
+    font-size: 14px;
+    animation: shapeAppear 1.8s ease forwards;
+}
+
+@keyframes shapeAppear {
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+}
+
+/* ЯЩИК */
+
+.heart-box {
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    bottom: 20px;
+    height: 33vh;
+    min-height: 190px;
+
+    background: rgba(255,255,255,.35);
+    border: 2px solid rgba(255,120,170,.45);
+    border-radius: 25px;
+
+    z-index: 150;
+    overflow: hidden;
+
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+
+    animation: boxAppear .4s ease;
+}
+
+@keyframes boxAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* СЕРДЦА В ЯЩИКЕ */
+
+.box-heart {
+    position: absolute;
+
+    pointer-events: auto;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+
+    z-index: 10;
+
+    will-change: left, top, transform;
+}
+
+.box-heart:active {
+    cursor: grabbing;
+}
+
+@media (max-width: 500px) {
 
     h1 {
         font-size: 29px;
     }
 
-    .photo-card {
-        height: 150px;
+    .cards {
+        gap: 10px;
     }
 
-    .counter b {
-        font-size: 26px;
+    .card {
+        height: 200px;
     }
 
-    .photo-back {
-        font-size: 15px;
-        padding: 14px;
+    .card-back {
+        font-size: 16px;
     }
 
+    #days {
+        font-size: 34px;
+    }
 }
-
 </style>
 </head>
 
@@ -226,22 +297,85 @@ button:active {
         27.09.2026
     </div>
 
+    <div class="timer">
 
-    <!-- СЧЁТЧИК -->
-
-    <div class="counter">
-
-        <div>
+        <div class="timer-title">
             Мы вместе уже
         </div>
 
-        <b id="days">
+        <div id="days">
             0 дней
-        </b>
+        </div>
 
-        <span id="time">
+        <div id="time">
             00 часов 00 минут 00 секунд
-        </span>
+        </div>
+
+    </div>
+
+
+    <!-- ФОТО -->
+
+    <div class="cards">
+
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <img src="IMG_7563.jpeg">
+                </div>
+
+                <div class="card-back">
+                    Мне очень хорошо рядом с тобой ❤️
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <img src="IMG_7778.jpeg">
+                </div>
+
+                <div class="card-back">
+                    Ты делаешь мои дни немного теплее 🫶
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <img src="IMG_7984.jpeg">
+                </div>
+
+                <div class="card-back">
+                    Мне нравится видеть твою улыбку ❤️
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <img src="IMG_7987.jpeg">
+                </div>
+
+                <div class="card-back">
+                    Я очень рад, что ты есть в моей жизни ❤️
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
@@ -256,101 +390,32 @@ button:active {
     </div>
 
 
-    <!-- ФОТО -->
+    <!-- КНОПКИ -->
 
-    <div class="photos">
+    <div class="buttons">
 
+        <button onclick="makeHearts(event)">
+            Нажми ❤️
+        </button>
 
-        <!-- ФОТО 1 -->
+        <button onclick="heartShapes(event)">
+            Сердце 💕
+        </button>
 
-        <div class="photo-card" onclick="flipCard(this)">
-
-            <div class="photo-inner">
-
-                <div class="photo-front">
-                    <img src="IMG_7563.jpeg" alt="Фото 1">
-                </div>
-
-                <div class="photo-back">
-                    Мне очень хорошо рядом с тобой ❤️
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ФОТО 2 -->
-
-        <div class="photo-card" onclick="flipCard(this)">
-
-            <div class="photo-inner">
-
-                <div class="photo-front">
-                    <img src="IMG_7778.jpeg" alt="Фото 2">
-                </div>
-
-                <div class="photo-back">
-                    Ты делаешь мои дни немного теплее 🫶
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ФОТО 3 -->
-
-        <div class="photo-card" onclick="flipCard(this)">
-
-            <div class="photo-inner">
-
-                <div class="photo-front">
-                    <img src="IMG_7984.jpeg" alt="Фото 3">
-                </div>
-
-                <div class="photo-back">
-                    Мне нравится видеть твою улыбку ❤️
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ФОТО 4 -->
-
-        <div class="photo-card" onclick="flipCard(this)">
-
-            <div class="photo-inner">
-
-                <div class="photo-front">
-                    <img src="IMG_7987.jpeg" alt="Фото 4">
-                </div>
-
-                <div class="photo-back">
-                    Я очень рад, что ты есть в моей жизни ❤️
-                </div>
-
-            </div>
-
-        </div>
+        <button onclick="startHeartRain(event)">
+            Много любви 🫶
+        </button>
 
     </div>
-
-
-    <!-- КНОПКА -->
-
-    <button onclick="makeHearts()">
-        Нажми ❤️
-    </button>
 
 </div>
 
 
 <script>
 
-/* СЧЁТЧИК */
+/* =====================================
+   СЧЁТЧИК
+===================================== */
 
 const startDate = new Date(2026, 8, 27);
 
@@ -358,26 +423,28 @@ function updateTimer() {
 
     const now = new Date();
 
-    const difference = Math.max(
-        0,
-        now - startDate
-    );
+    const difference =
+        Math.max(0, now - startDate);
 
-    const days = Math.floor(
-        difference / 86400000
-    );
+    const days =
+        Math.floor(
+            difference / 86400000
+        );
 
-    const hours = Math.floor(
-        (difference % 86400000) / 3600000
-    );
+    const hours =
+        Math.floor(
+            (difference % 86400000) / 3600000
+        );
 
-    const minutes = Math.floor(
-        (difference % 3600000) / 60000
-    );
+    const minutes =
+        Math.floor(
+            (difference % 3600000) / 60000
+        );
 
-    const seconds = Math.floor(
-        (difference % 60000) / 1000
-    );
+    const seconds =
+        Math.floor(
+            (difference % 60000) / 1000
+        );
 
     document.getElementById("days").textContent =
         days + " дней";
@@ -385,8 +452,10 @@ function updateTimer() {
     document.getElementById("time").textContent =
         String(hours).padStart(2, "0") +
         " часов " +
+
         String(minutes).padStart(2, "0") +
         " минут " +
+
         String(seconds).padStart(2, "0") +
         " секунд";
 }
@@ -396,44 +465,940 @@ updateTimer();
 setInterval(updateTimer, 1000);
 
 
-/* ПЕРЕВОРОТ ФОТО */
+/* =====================================
+   ФОТО
+===================================== */
 
 function flipCard(card) {
+
     card.classList.toggle("flipped");
+
 }
 
 
-/* СЕРДЕЧКИ */
+/* =====================================
+   ПЕРВАЯ КНОПКА
+===================================== */
 
-function makeHearts() {
+function makeHearts(event) {
 
-    for (let i = 0; i < 15; i++) {
+    event.stopPropagation();
+
+    const hearts = [
+        "❤️",
+        "🩷",
+        "💕",
+        "💗",
+        "💖",
+        "💘"
+    ];
+
+    for (let i = 0; i < 20; i++) {
 
         const heart =
             document.createElement("div");
 
-        heart.className = "heart";
+        heart.className =
+            "flying-heart";
 
-        heart.textContent = "❤️";
+        heart.textContent =
+            hearts[
+                Math.floor(
+                    Math.random() * hearts.length
+                )
+            ];
 
         heart.style.left =
-            Math.random() * 100 + "vw";
+            Math.random() * 90 + 5 + "vw";
 
         heart.style.top =
-            (60 + Math.random() * 30) + "vh";
+            Math.random() * 70 + 15 + "vh";
+
+        heart.style.fontSize =
+            Math.random() * 18 + 18 + "px";
 
         heart.style.animationDelay =
-            Math.random() * 0.5 + "s";
+            Math.random() * .4 + "s";
 
         document.body.appendChild(heart);
 
         setTimeout(() => {
             heart.remove();
-        }, 2500);
+        }, 2800);
+    }
+}
 
+
+/* =====================================
+   ВТОРАЯ КНОПКА
+   МЯГКОЕ СЕРДЦЕ
+===================================== */
+
+function heartShapes(event) {
+
+    event.stopPropagation();
+
+    const hearts = [
+        "❤️",
+        "🩷",
+        "💕",
+        "💗",
+        "💖"
+    ];
+
+    /*
+       Случайное место появления
+    */
+
+    const centerX =
+        Math.random() * 35 + 32;
+
+    const centerY =
+        Math.random() * 25 + 35;
+
+
+    /*
+       Форма максимально приближена
+       к мягкому ❤️
+    */
+
+    for (let i = 0; i < 100; i++) {
+
+        const t =
+            (Math.PI * 2 * i) / 100;
+
+
+        /*
+           Сердце с широкими
+           верхними долями
+           и мягким низом
+        */
+
+        const x =
+            16 * Math.pow(
+                Math.sin(t),
+                3
+            );
+
+        const y =
+            -(
+                10.5 * Math.cos(t)
+                - 4.5 * Math.cos(2 * t)
+                - 1.8 * Math.cos(3 * t)
+                - 0.6 * Math.cos(4 * t)
+            );
+
+
+        const heart =
+            document.createElement("div");
+
+        heart.className =
+            "shape-heart";
+
+        heart.textContent =
+            hearts[
+                Math.floor(
+                    Math.random() * hearts.length
+                )
+            ];
+
+
+        /*
+           Размер
+        */
+
+        const scale = 3.5;
+
+
+        heart.style.left =
+            centerX +
+            x * scale / 10 +
+            "vw";
+
+        heart.style.top =
+            centerY +
+            y * scale / 10 +
+            "vh";
+
+
+        heart.style.fontSize =
+            Math.random() * 4 +
+            10 +
+            "px";
+
+
+        heart.style.animationDelay =
+            Math.random() * .4 +
+            "s";
+
+
+        document.body.appendChild(
+            heart
+        );
+
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        }, 2400);
+    }
+}
+
+
+/* =====================================
+   ТРЕТЬЯ КНОПКА
+===================================== */
+
+let activeHeartBox = null;
+
+let sensorEnabled = false;
+
+let tiltX = 0;
+let tiltY = 0;
+
+let shakePower = 0;
+
+
+/* =====================================
+   ОТКРЫТИЕ ЯЩИКА
+===================================== */
+
+async function startHeartRain(event) {
+
+    event.stopPropagation();
+
+    /*
+       Если коробка уже открыта,
+       повторно её не создаём
+    */
+
+    if (activeHeartBox) {
+        return;
     }
 
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "heart-box";
+
+    document.body.appendChild(
+        box
+    );
+
+    activeHeartBox = box;
+
+
+    const hearts = [
+        "❤️",
+        "🩷",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝"
+    ];
+
+
+    /*
+       Разрешение гироскопа
+    */
+
+    await enableMotion();
+
+
+    /*
+       Создаём 65 сердечек
+    */
+
+    for (let i = 0; i < 65; i++) {
+
+        createBoxHeart(
+            box,
+            hearts
+        );
+    }
+
+
+    /*
+       Удаляем через 12 секунд
+    */
+
+    setTimeout(() => {
+
+        if (box === activeHeartBox) {
+
+            box.remove();
+
+            activeHeartBox = null;
+
+        }
+
+    }, 12000);
 }
+
+
+/* =====================================
+   ГИРОСКОП / АКСЕЛЕРОМЕТР
+===================================== */
+
+async function enableMotion() {
+
+    try {
+
+        /*
+           iPhone требует разрешение
+        */
+
+        if (
+            typeof DeviceMotionEvent !==
+            "undefined" &&
+
+            typeof DeviceMotionEvent
+                .requestPermission ===
+                "function"
+        ) {
+
+            const permission =
+                await DeviceMotionEvent
+                    .requestPermission();
+
+            if (
+                permission !== "granted"
+            ) {
+                return;
+            }
+        }
+
+
+        if (
+            typeof DeviceOrientationEvent !==
+            "undefined" &&
+
+            typeof DeviceOrientationEvent
+                .requestPermission ===
+                "function"
+        ) {
+
+            const permission =
+                await DeviceOrientationEvent
+                    .requestPermission();
+
+            if (
+                permission !== "granted"
+            ) {
+                return;
+            }
+        }
+
+
+        /*
+           Подключаем датчики
+        */
+
+        if (!sensorEnabled) {
+
+            window.addEventListener(
+                "deviceorientation",
+                handleOrientation
+            );
+
+            window.addEventListener(
+                "devicemotion",
+                handleMotion
+            );
+
+            sensorEnabled = true;
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Датчики недоступны",
+            error
+        );
+    }
+}
+
+
+/* =====================================
+   НАКЛОН
+===================================== */
+
+function handleOrientation(event) {
+
+    if (!activeHeartBox) {
+        return;
+    }
+
+    if (
+        typeof event.gamma !==
+        "number" ||
+
+        typeof event.beta !==
+        "number"
+    ) {
+        return;
+    }
+
+
+    /*
+       Влево / вправо
+    */
+
+    tiltX =
+        Math.max(
+            -1,
+            Math.min(
+                1,
+                event.gamma / 25
+            )
+        );
+
+
+    /*
+       Вперёд / назад
+    */
+
+    tiltY =
+        Math.max(
+            -1,
+            Math.min(
+                1,
+                (event.beta - 45) / 25
+            )
+        );
+}
+
+
+/* =====================================
+   ВСТРЯСКА
+===================================== */
+
+function handleMotion(event) {
+
+    if (!activeHeartBox) {
+        return;
+    }
+
+    const acceleration =
+        event.accelerationIncludingGravity;
+
+    if (!acceleration) {
+        return;
+    }
+
+
+    const x =
+        acceleration.x || 0;
+
+    const y =
+        acceleration.y || 0;
+
+    const z =
+        acceleration.z || 0;
+
+
+    const force =
+        Math.sqrt(
+            x * x +
+            y * y +
+            z * z
+        );
+
+
+    /*
+       Если телефон резко тряхнули
+    */
+
+    if (force > 18) {
+
+        shakePower =
+            Math.min(
+                15,
+                shakePower + 5
+            );
+
+
+        document
+            .querySelectorAll(
+                ".box-heart"
+            )
+            .forEach(heart => {
+
+                heart.dataset.vx =
+                    (Math.random() - .5) * 80;
+
+                heart.dataset.vy =
+                    (Math.random() - .5) * 50;
+
+            });
+    }
+}
+
+
+/* =====================================
+   СОЗДАНИЕ СЕРДЦА
+===================================== */
+
+function createBoxHeart(
+    box,
+    hearts
+) {
+
+    const heart =
+        document.createElement("div");
+
+    heart.className =
+        "box-heart";
+
+
+    heart.textContent =
+        hearts[
+            Math.floor(
+                Math.random() *
+                hearts.length
+            )
+        ];
+
+
+    const size =
+        Math.random() * 15 + 18;
+
+    heart.style.fontSize =
+        size + "px";
+
+
+    /*
+       Случайное положение
+    */
+
+    const x =
+        Math.random() *
+        Math.max(
+            1,
+            box.clientWidth - 30
+        );
+
+    const y =
+        Math.random() *
+        Math.max(
+            1,
+            box.clientHeight - 30
+        );
+
+
+    heart.dataset.x = x;
+    heart.dataset.y = y;
+
+
+    /*
+       Начальная скорость
+    */
+
+    heart.dataset.vx =
+        (Math.random() - .5) * 1.5;
+
+    heart.dataset.vy =
+        (Math.random() - .5) * 1.5;
+
+
+    /*
+       Вращение
+    */
+
+    heart.dataset.rotation =
+        Math.random() * 360;
+
+
+    heart.style.left =
+        x + "px";
+
+    heart.style.top =
+        y + "px";
+
+    heart.style.transform =
+        `rotate(${heart.dataset.rotation}deg)`;
+
+
+    box.appendChild(
+        heart
+    );
+
+
+    /* =================================
+       ПЕРЕТАСКИВАНИЕ
+    ================================= */
+
+    let dragging = false;
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+
+    heart.addEventListener(
+        "pointerdown",
+        function(e) {
+
+            e.stopPropagation();
+
+            dragging = true;
+
+
+            const rect =
+                heart.getBoundingClientRect();
+
+
+            offsetX =
+                e.clientX -
+                rect.left;
+
+            offsetY =
+                e.clientY -
+                rect.top;
+
+
+            /*
+               При хватании
+               останавливаем инерцию
+            */
+
+            heart.dataset.vx = 0;
+            heart.dataset.vy = 0;
+
+
+            heart.setPointerCapture(
+                e.pointerId
+            );
+        }
+    );
+
+
+    heart.addEventListener(
+        "pointermove",
+        function(e) {
+
+            if (!dragging) {
+                return;
+            }
+
+
+            const rect =
+                box.getBoundingClientRect();
+
+
+            let newX =
+                e.clientX -
+                rect.left -
+                offsetX;
+
+
+            let newY =
+                e.clientY -
+                rect.top -
+                offsetY;
+
+
+            const maxX =
+                box.clientWidth -
+                heart.offsetWidth;
+
+
+            const maxY =
+                box.clientHeight -
+                heart.offsetHeight;
+
+
+            newX =
+                Math.max(
+                    0,
+                    Math.min(
+                        newX,
+                        maxX
+                    )
+                );
+
+
+            newY =
+                Math.max(
+                    0,
+                    Math.min(
+                        newY,
+                        maxY
+                    )
+                );
+
+
+            heart.dataset.x =
+                newX;
+
+            heart.dataset.y =
+                newY;
+
+
+            heart.style.left =
+                newX + "px";
+
+            heart.style.top =
+                newY + "px";
+        }
+    );
+
+
+    heart.addEventListener(
+        "pointerup",
+        function(e) {
+
+            dragging = false;
+
+            try {
+
+                heart.releasePointerCapture(
+                    e.pointerId
+                );
+
+            } catch {}
+
+        }
+    );
+}
+
+
+/* =====================================
+   ФИЗИКА
+===================================== */
+
+function animateHearts() {
+
+    if (activeHeartBox) {
+
+        const hearts =
+            activeHeartBox
+                .querySelectorAll(
+                    ".box-heart"
+                );
+
+
+        hearts.forEach(heart => {
+
+            /*
+               Если сердечко сейчас
+               перетаскивают — пропускаем
+            */
+
+            if (
+                heart.hasPointerCapture &&
+                (
+                    heart.hasPointerCapture(1) ||
+                    heart.hasPointerCapture(2) ||
+                    heart.hasPointerCapture(3)
+                )
+            ) {
+                return;
+            }
+
+
+            let x =
+                parseFloat(
+                    heart.dataset.x
+                ) || 0;
+
+            let y =
+                parseFloat(
+                    heart.dataset.y
+                ) || 0;
+
+
+            let vx =
+                parseFloat(
+                    heart.dataset.vx
+                ) || 0;
+
+            let vy =
+                parseFloat(
+                    heart.dataset.vy
+                ) || 0;
+
+
+            /*
+               Сила от наклона
+            */
+
+            vx +=
+                tiltX * 0.10;
+
+            vy +=
+                tiltY * 0.10;
+
+
+            /*
+               Сила от встряски
+            */
+
+            if (shakePower > 0) {
+
+                vx +=
+                    (Math.random() - .5)
+                    * shakePower
+                    * .08;
+
+                vy +=
+                    (Math.random() - .5)
+                    * shakePower
+                    * .08;
+
+                shakePower *= .94;
+            }
+
+
+            /*
+               Трение
+            */
+
+            vx *= .985;
+            vy *= .985;
+
+
+            /*
+               Ограничение скорости
+            */
+
+            vx =
+                Math.max(
+                    -4,
+                    Math.min(
+                        4,
+                        vx
+                    )
+                );
+
+            vy =
+                Math.max(
+                    -4,
+                    Math.min(
+                        4,
+                        vy
+                    )
+                );
+
+
+            x += vx;
+            y += vy;
+
+
+            const maxX =
+                activeHeartBox.clientWidth -
+                heart.offsetWidth;
+
+            const maxY =
+                activeHeartBox.clientHeight -
+                heart.offsetHeight;
+
+
+            /*
+               Стенка слева
+            */
+
+            if (x <= 0) {
+
+                x = 0;
+
+                vx *= -0.75;
+            }
+
+
+            /*
+               Стенка справа
+            */
+
+            if (x >= maxX) {
+
+                x = maxX;
+
+                vx *= -0.75;
+            }
+
+
+            /*
+               Верх
+            */
+
+            if (y <= 0) {
+
+                y = 0;
+
+                vy *= -0.75;
+            }
+
+
+            /*
+               Низ
+            */
+
+            if (y >= maxY) {
+
+                y = maxY;
+
+                vy *= -0.75;
+            }
+
+
+            /*
+               Сохраняем
+            */
+
+            heart.dataset.x = x;
+            heart.dataset.y = y;
+
+            heart.dataset.vx = vx;
+            heart.dataset.vy = vy;
+
+
+            heart.style.left =
+                x + "px";
+
+            heart.style.top =
+                y + "px";
+
+
+            /*
+               Вращение
+            */
+
+            let rotation =
+                parseFloat(
+                    heart.dataset.rotation
+                ) || 0;
+
+
+            rotation +=
+                vx * .7;
+
+
+            heart.dataset.rotation =
+                rotation;
+
+
+            heart.style.transform =
+                `rotate(${rotation}deg)`;
+
+        });
+    }
+
+
+    requestAnimationFrame(
+        animateHearts
+    );
+}
+
+
+/*
+   Запускаем физику
+*/
+
+animateHearts();
 
 </script>
 
