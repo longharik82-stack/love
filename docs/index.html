@@ -66,7 +66,7 @@ h1 {
     font-size: 16px;
 }
 
-/* ТЕКСТ */
+/* СООБЩЕНИЕ */
 
 .message {
     background: white;
@@ -85,21 +85,68 @@ h1 {
     grid-template-columns: 1fr 1fr;
     gap: 14px;
     margin-bottom: 30px;
+    perspective: 1000px;
 }
 
-.photo {
+.photo-card {
     height: 190px;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.photo-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s ease;
+    transform-style: preserve-3d;
+}
+
+.photo-card.flipped .photo-inner {
+    transform: rotateY(180deg);
+}
+
+.photo-front,
+.photo-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border-radius: 18px;
     overflow: hidden;
-    background: #f8cbd6;
-    box-shadow: 0 6px 18px rgba(100,40,60,0.1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 6px 18px rgba(100,40,60,0.12);
 }
 
-.photo img {
+/* ЛИЦЕВАЯ СТОРОНА */
+
+.photo-front {
+    background: #f8cbd6;
+}
+
+.photo-front img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* ОБРАТНАЯ СТОРОНА */
+
+.photo-back {
+    background: linear-gradient(135deg, #fff0f4, #ffdce6);
+    transform: rotateY(180deg);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    color: #7d4050;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
 /* КНОПКА */
@@ -143,18 +190,25 @@ button:active {
 
 }
 
+/* ТЕЛЕФОН */
+
 @media (max-width: 400px) {
 
     h1 {
         font-size: 29px;
     }
 
-    .photo {
+    .photo-card {
         height: 150px;
     }
 
     .counter b {
         font-size: 26px;
+    }
+
+    .photo-back {
+        font-size: 15px;
+        padding: 14px;
     }
 
 }
@@ -171,6 +225,7 @@ button:active {
     <div class="date">
         27.09.2026
     </div>
+
 
     <!-- СЧЁТЧИК -->
 
@@ -190,6 +245,7 @@ button:active {
 
     </div>
 
+
     <!-- СООБЩЕНИЕ -->
 
     <div class="message">
@@ -199,27 +255,89 @@ button:active {
 
     </div>
 
+
     <!-- ФОТО -->
 
     <div class="photos">
 
-        <div class="photo">
-            <img src="IMG_7563.jpeg" alt="Фото 1">
+
+        <!-- ФОТО 1 -->
+
+        <div class="photo-card" onclick="flipCard(this)">
+
+            <div class="photo-inner">
+
+                <div class="photo-front">
+                    <img src="IMG_7563.jpeg" alt="Фото 1">
+                </div>
+
+                <div class="photo-back">
+                    Мне очень хорошо рядом с тобой ❤️
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="photo">
-            <img src="IMG_7778.jpeg" alt="Фото 2">
+
+        <!-- ФОТО 2 -->
+
+        <div class="photo-card" onclick="flipCard(this)">
+
+            <div class="photo-inner">
+
+                <div class="photo-front">
+                    <img src="IMG_7778.jpeg" alt="Фото 2">
+                </div>
+
+                <div class="photo-back">
+                    Ты делаешь мои дни немного теплее 🫶
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="photo">
-            <img src="IMG_7984.jpeg" alt="Фото 3">
+
+        <!-- ФОТО 3 -->
+
+        <div class="photo-card" onclick="flipCard(this)">
+
+            <div class="photo-inner">
+
+                <div class="photo-front">
+                    <img src="IMG_7984.jpeg" alt="Фото 3">
+                </div>
+
+                <div class="photo-back">
+                    Мне нравится видеть твою улыбку ❤️
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="photo">
-            <img src="IMG_7987.jpeg" alt="Фото 4">
+
+        <!-- ФОТО 4 -->
+
+        <div class="photo-card" onclick="flipCard(this)">
+
+            <div class="photo-inner">
+
+                <div class="photo-front">
+                    <img src="IMG_7987.jpeg" alt="Фото 4">
+                </div>
+
+                <div class="photo-back">
+                    Я очень рад, что ты есть в моей жизни ❤️
+                </div>
+
+            </div>
+
         </div>
 
     </div>
+
 
     <!-- КНОПКА -->
 
@@ -231,6 +349,8 @@ button:active {
 
 
 <script>
+
+/* СЧЁТЧИК */
 
 const startDate = new Date(2026, 8, 27);
 
@@ -276,13 +396,21 @@ updateTimer();
 setInterval(updateTimer, 1000);
 
 
+/* ПЕРЕВОРОТ ФОТО */
+
+function flipCard(card) {
+    card.classList.toggle("flipped");
+}
+
+
 /* СЕРДЕЧКИ */
 
 function makeHearts() {
 
     for (let i = 0; i < 15; i++) {
 
-        const heart = document.createElement("div");
+        const heart =
+            document.createElement("div");
 
         heart.className = "heart";
 
@@ -302,7 +430,9 @@ function makeHearts() {
         setTimeout(() => {
             heart.remove();
         }, 2500);
+
     }
+
 }
 
 </script>
